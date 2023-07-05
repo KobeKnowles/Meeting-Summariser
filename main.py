@@ -11,23 +11,23 @@ OPENAI_ORGANISATION_KEY: Final = "" # NAOInstitute
 openai.api_key = OPENAI_API_KEY
 openai.organization = OPENAI_ORGANISATION_KEY
 
-def get_transcript(model, filepaths: list[str], save_transcript: bool, save_path: str="") -> str:
+def get_transcript(model, filepaths: list[str], save_transcript: bool, save_path: str="", save_mode="wb") -> str:
     
     transcript: str = model.audio_to_text_m(filepath_list = filepath_list, print_otf=False)
     try:
         if save_transcript:
-            model.save_string(str_=transcript.encode("utf-8"), save_fp=transcript_save_fp, mode="w", new_line=False)
+            model.save_string(str_=transcript, save_fp=transcript_save_fp, mode=save_mode, new_line=False)
     except:
-        pass 
+        print(f"Error saving the transcript file!") 
     return transcript
 
-def get_summary(model, transcipt: str, save_summary: bool, save_path: str="") -> str:
+def get_summary(model, transcipt: str, save_summary: bool, save_path: str="", save_mode="wb") -> str:
     summary: str = model.summarise_text(transcipt=transcipt, own_prompt=None)
     try: 
         if save_summary:
-            model.save_string(str_=summary.encode("utf-8"), save_fp=save_fp_sum, mode="w", new_line=False)
+            model.save_string(str_=summary, save_fp=save_fp_sum, mode=save_mode, new_line=False)
     except:
-        pass
+        print(f"Error saving the summary file!")
     return summary
 
 if __name__ == "__main__":
