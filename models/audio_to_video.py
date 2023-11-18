@@ -52,9 +52,15 @@ class AudioToTextOpenAI(object):
             chunk = f.read(chunk_size)
         f.close()
 
-    def save_string(self, str_: str, save_fp: str, mode: str="w", new_line: bool=False):
-        if new_line: str_ = str_ + "\n"
-        with open(save_fp, mode) as f:
+    #def save_string(self, str_: str, save_fp: str, mode: str="w", new_line: bool=False):
+    #    if new_line: str_ = str_ + "\n"
+    #    with open(save_fp, mode) as f:
+    #        f.write(str_)
+            
+    def save_string(self, str_: str, save_fp: str, mode: str = "w", new_line: bool = False):
+        if new_line:
+            str_ += "\n"
+        with open(save_fp, mode, encoding='utf-8') as f:  # Ensure text mode with UTF-8 encoding
             f.write(str_)
 
 
@@ -74,8 +80,8 @@ if __name__ == "__main__":
     #video_audio_filepath = "C:\\Users\\kkno604\\Documents\\Reading Group Recordings\\18th April 2023\\GMT20230417-213530_Recording.mp3"
 
 
-    filepath_list = ["C:\\Users\\kkno604\\Documents\\Reading Group Recordings\\18th April 2023\\GMT20230417-213530_Recording-1-of-2.m4a",
-                     "C:\\Users\\kkno604\\Documents\\Reading Group Recordings\\18th April 2023\\GMT20230417-213530_Recording-2-of-2.m4a"]
+    filepath_list = ["C:\\Users\\kkno604\\Documents\\Reading Group Recordings\\11th July 2023\\reading-group-rec-1-of-2.m4a",
+                     "C:\\Users\\kkno604\\Documents\\Reading Group Recordings\\11th July 2023\\reading-group-rec-2-of-2.m4a"]
     #print(f"filepath_list: {filepath_list}")
 
     transcript = get_text.audio_to_text_m(filepath_list = filepath_list, print_otf=False)
